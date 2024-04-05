@@ -27,10 +27,12 @@ namespace ShopApp
     
         public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Stock> Stock { get; set; }
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<UserAccount> UserAccount { get; set; }
         public virtual DbSet<UserInformation> UserInformation { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Image> Image { get; set; }
     }
 }

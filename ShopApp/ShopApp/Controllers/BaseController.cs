@@ -13,6 +13,9 @@ namespace ShopApp.Controllers
         public UserManager _userManager;
         public StoreManager _storeManager;
         public BrandManager _branManager;
+        public CategoryManager _categoryManager;
+        public ProductManager _productManager;
+        public ImageAttachManager _imgMgr;
 
         public String Username { get { return User.Identity.Name; } }
         public String UserId { get { return _userManager.GetUserByUsername(Username).userId; } }
@@ -23,6 +26,9 @@ namespace ShopApp.Controllers
             _userManager = new UserManager();
             _storeManager = new StoreManager();
             _branManager = new BrandManager();
+            _categoryManager = new CategoryManager();
+            _productManager = new ProductManager();
+            _imgMgr = new ImageAttachManager();
         }
 
        
@@ -34,7 +40,7 @@ namespace ShopApp.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     userLogged.UserAccount = _userManager.GetUserByUsername(User.Identity.Name);
-                    userLogged.UserInformation = _userManager.GetUserInfoByUserId(userLogged.UserAccount.userId);
+                    userLogged.UserInformation = _userManager.CreateOrRetrieve(userLogged.UserAccount.username, ref ErrorMessage);
                     userLogged.Store = userLogged.UserInformation.storeId != null ? _storeManager.GetStoreById(userLogged.UserInformation.storeId) : null;
                 }
             }

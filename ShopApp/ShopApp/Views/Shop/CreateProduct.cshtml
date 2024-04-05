@@ -1,0 +1,97 @@
+﻿@model ShopApp.Product
+
+@{
+    ViewBag.Title = "CreateProduct";
+    ViewBag.HeaderTitle = "New Product";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+<style>
+    #preview img { max-height: 100px; }
+</style>
+<div class="col-md-8">
+    @using (Html.BeginForm( "CreateProduct","Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <input id="files" name="files" type="file" accept="image/*" multiple>
+                <br />
+                Preview
+                <div id="preview"></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Name</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.productName, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                    @Html.ValidationMessageFor(model => model.productName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Description</label>
+                <div class="col-md-10">
+                    @Html.TextArea("productDesc", null, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.productDesc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Brand</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("brandId", (IEnumerable<SelectListItem>)ViewBag.Brand, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Category</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.Category, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Model-Year</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.modelYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.modelYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Price</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.listPrice, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = true } })
+                    @Html.ValidationMessageFor(model => model.listPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script type="text/javascript">
+    const preview = (file) => {
+        const fr = new FileReader();
+        fr.onload = () => {
+            const img = document.createElement("img");
+            img.src = fr.result;  // String Base64 
+            img.alt = file.name;
+            document.querySelector('#preview').append(img);
+        };
+        fr.readAsDataURL(file);
+    };
+    document.querySelector("#files").addEventListener("change", (ev) => {
+        if (!ev.target.files) return; // Do nothing.
+        [...ev.target.files].forEach(preview);
+    });
+</script>

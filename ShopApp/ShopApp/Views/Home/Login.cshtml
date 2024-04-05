@@ -7,6 +7,7 @@
 <div class="col-md-6">
     @using (Html.BeginForm())
     {
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <div class="form-group">
             Username
             <div class="col-md-10">
@@ -22,20 +23,42 @@
 
         <div class="form-group">
             <div class="col-md-10">
-                @ViewBag.Error
+                @if (!String.IsNullOrEmpty(ViewBag.Error as String))
+                {
+                    <div style="color: red;">
+                        @ViewBag.Error
+                    </div>
+                }
+               
+                
             </div>
         </div>
         <div class="form-group">
             <br />
             <div class="col-md-10">
-                <input type="submit" class="btn btn-success" value="Login" />
+                <input type="submit" class="btn btn-success" value="Login" style="width: 100%;"/>
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-10">
-                <a href="~/Home/SignUp"> Sign Up</a>
+                <div class="row">
+                    <div class="col-md-5">
+                        <hr />
+                    </div>
+                    <div class="col-md-2">
+                        <center>OR</center>
+                    </div>
+                    <div class="col-md-5">
+                        <hr/>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <a href="~/Home/SignUp" class="btn btn-outline-light" style="background-color:dodgerblue; color: white;width: 100%;">Sign Up</a>
+            </div>
+            <br/>
         </div>
     }
 </div>

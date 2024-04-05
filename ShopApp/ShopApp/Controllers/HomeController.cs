@@ -21,18 +21,19 @@ namespace ShopApp.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(String ReturnUrl)
         {
             if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index");
 
             ViewBag.Error = String.Empty;
+            ViewBag.ReturnUrl = ReturnUrl;
 
             return View();
         }
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(String username, String password)
+        public ActionResult Login(String username, String password, String ReturnUrl)
         {
             if (_userManager.SignIn(username, password, ref ErrorMessage) == ErrorCode.Success)
             {
@@ -46,11 +47,9 @@ namespace ShopApp.Controllers
                 //
                 FormsAuthentication.SetAuthCookie(username, false);
                 //
-                //UserLogged userLogged = new UserLogged();
-                //userLogged.UserAccount = user;
-                //userLogged.UserInformation = _userManager.GetUserInfoByUserId(user.userId);
-                //userLogged.Store = null;
-                //
+                if (!String.IsNullOrEmpty(ReturnUrl))
+                    return Redirect(ReturnUrl);
+
                 switch (user.Role.roleName)
                 {
                     case Constant.Role_Customer:
@@ -136,6 +135,7 @@ namespace ShopApp.Controllers
         [Authorize]
         public ActionResult MyProfile()
         {
+            IsUserLoggedSession();
             var user = _userManager.CreateOrRetrieve(User.Identity.Name, ref ErrorMessage);
           
             return View(user);

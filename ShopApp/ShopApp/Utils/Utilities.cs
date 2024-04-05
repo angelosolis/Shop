@@ -31,6 +31,11 @@ namespace ShopApp.Utils
         public const int ERROR = 1;
         public const int SUCCESS = 0;
     }
+    public class ProductStatus
+    {
+        public const String OK = "HAS STOCK/s";
+        public const String OUT_OF_STOCK = "OUT OF STOCK";
+    }
     public class Utilities
     {
         public static String gUid {
@@ -64,6 +69,40 @@ namespace ShopApp.Utils
 
                 return list;
             }
+        }
+
+        public static List<SelectListItem> SelectListItemBrandByUser(String username)
+        {
+            BrandManager _brandMgr = new BrandManager();
+                var list = new List<SelectListItem>();
+                foreach (var item in _brandMgr.ListBrand(username))
+                {
+                    var r = new SelectListItem
+                    {
+                        Text = item.brandName,
+                        Value = item.brandId.ToString()
+                    };
+                    list.Add(r);
+                }
+
+                return list;
+        }
+
+        public static List<SelectListItem> SelectListItemCategoryByUser(String username)
+        {
+            CategoryManager _categoryMgr = new CategoryManager();
+            var list = new List<SelectListItem>();
+            foreach (var item in _categoryMgr.ListCategory(username))
+            {
+                var r = new SelectListItem
+                {
+                    Text = item.categoryName,
+                    Value = item.categoryId.ToString()
+                };
+                list.Add(r);
+            }
+
+            return list;
         }
     }
 }

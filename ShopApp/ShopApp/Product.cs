@@ -14,14 +14,30 @@ namespace ShopApp
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.Stock = new HashSet<Stock>();
+            this.Image = new HashSet<Image>();
+        }
+    
         public int productId { get; set; }
         public string productName { get; set; }
+        public string productDesc { get; set; }
         public int brandId { get; set; }
         public int categoryId { get; set; }
-        public short modelYear { get; set; }
+        public Nullable<short> modelYear { get; set; }
         public decimal listPrice { get; set; }
+        public Nullable<System.DateTime> dateCreated { get; set; }
+        public string status { get; set; }
+        public string userId { get; set; }
+        public string productgUId { get; set; }
     
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Stock> Stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Image> Image { get; set; }
     }
 }

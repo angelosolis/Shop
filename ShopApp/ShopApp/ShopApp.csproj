@@ -127,6 +127,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Shop\brand\brand.js" />
+    <Content Include="Content\Shop\category\category.js" />
     <Content Include="Content\Shop\main.css" />
     <Content Include="Content\Shop\main.js" />
     <Content Include="Content\Shop\tables.js" />
@@ -199,6 +201,9 @@
     </Compile>
     <Compile Include="Contract\IBaseRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Image.cs">
+      <DependentUpon>ModelShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Response.cs" />
     <Compile Include="Repository\BrandManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -227,9 +232,15 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\CategoryManager.cs" />
+    <Compile Include="Repository\ImageAttachManager.cs" />
+    <Compile Include="Repository\ProductManager.cs" />
     <Compile Include="Repository\StoreManager.cs" />
     <Compile Include="Repository\UserManager.cs" />
     <Compile Include="Role.cs">
+      <DependentUpon>ModelShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock.cs">
       <DependentUpon>ModelShop.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">
@@ -270,6 +281,9 @@
     <Content Include="Views\Shop\MyProfile.cshtml" />
     <Content Include="Views\Shop\MyStore.cshtml" />
     <Content Include="Views\Shop\Brand.cshtml" />
+    <Content Include="Views\Shop\Category.cshtml" />
+    <Content Include="Views\Shop\Product.cshtml" />
+    <Content Include="Views\Shop\CreateProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

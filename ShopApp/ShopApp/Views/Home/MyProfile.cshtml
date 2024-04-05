@@ -16,7 +16,7 @@
             <hr />
             @if (!String.IsNullOrEmpty(TempData["Message"] as String))
             {
-                <span class="alert alert-success">TempData["Message"]</span>
+                <span class="alert alert-success">@TempData["Message"]</span>
                 <br /><br /><br />
             }
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
