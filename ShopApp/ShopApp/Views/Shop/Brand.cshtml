@@ -1,0 +1,221 @@
+﻿@model IEnumerable<ShopApp.Brand>
+
+@{
+    ViewBag.Title = "Brand";
+    ViewBag.HeaderTitle = "List of Brand";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+
+<h2>Brand</h2>
+
+<p>
+    <button id="btnCreate" type="button" class="btn btn-info btn-lg">Create New</button>
+</p>
+
+<table id="myTable" class="table display">
+    <thead>
+        <tr>
+            <th>
+                Seq #
+            </th>
+            <th>
+                 Brand Name
+            </th>
+            <th>
+                Date Created / Modified
+            </th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @{ int i = 1;}
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.brandName)
+                </td>
+                <td>
+                    @item.dateCreated.Value.ToLongDateString()
+                </td>
+                <td>
+                    @(item.status == 1 ? "Active": "Inactive")
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="onEdit(@item.brandId)" style="cursor: pointer;"><i class="fa fa-edit"></i> Edit</button> |
+                    <button class="btn btn-danger" onclick="onDelete(@item.brandId)" style="cursor: pointer;"><i class="fa fa-trash"></i> Delete</button> 
+
+                </td>
+            </tr>
+
+            i++;
+        }
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--Dialog-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    $("#btnCreate").click(function () {
+        //
+        var htmlBody = "<input type='text' class='form-control' id='brandname' value='' required />";
+        // Set label
+        $('#modalTitle').html("Create New Brand Name");
+        $('#modalBody').html(htmlBody);
+        $('#modalBtnOk').html("Save");
+        $('#modalBtnCancel').html("Cancel");
+        // Set up action
+        $('#modalBtnCancel').click(function () {
+            $('#myModal').modal('hide');
+        });
+        $('#modalBtnOk').click(function () {
+            var brandName = $('#brandname').val();
+            if (brandName == "") {
+                $('#brandname').css("border", "1px solid red");
+                return;
+            }
+            // reset
+            $('#brandname').css("border", "1px solid #ced4da");
+            // Show prompt
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "question",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showCancelButton: true,
+                confirmButtonText: "Save",
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    // save here
+                    $.post("/Shop/BrandCreate",
+                      {
+                          brandId: 0,
+                          brandName: brandName
+                      },
+                      function (data, status) {
+                          if (data.code == 0) {
+                              Swal.fire(data.message, "", "success").then((result) => {
+                                  if (result.isConfirmed)
+                                  {
+                                      window.location = "/Shop/Brand";
+                                  }
+                              });
+                              $('#myModal').modal('hide');
+                          }
+                          else {
+                              Swal.fire(data.message, "", "danger");
+                          }
+                      });
+                } 
+            });
+
+        });
+
+        $('#myModal').modal('show');
+    });
+    function onEdit(id)
+    {
+        $.get("/Shop/BrandGetById/"+id, function(data, status){
+            var brand = data;
+
+            brand.dateCreated = new Date().toLocaleDateString();
+            
+            //
+            var htmlBody = "<input type='text' class='form-control' id='brandname' value='"+brand.brandName+"' required />";
+            // Set label
+            $('#modalTitle').html("Update Brand Name("+brand.brandName+")");
+            $('#modalBody').html(htmlBody);
+            $('#modalBtnOk').html("Update");
+            $('#modalBtnCancel').html("Cancel");
+            // Set up action
+            $('#modalBtnCancel').click(function () {
+                $('#myModal').modal('hide');
+            });
+            $('#modalBtnOk').click(function () {
+                var brandName = $('#brandname').val();
+                if (brandName == "") {
+                    $('#brandname').css("border", "1px solid red");
+                    return;
+                }
+                // reset
+                $('#brandname').css("border", "1px solid #ced4da");
+                // assign new brand name
+                brand.brandName = brandName;
+                // Show prompt
+                Swal.fire({
+                    title: "Are you sure?",
+                    icon: "question",
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    showCancelButton: true,
+                    confirmButtonText: "Save",
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // save here
+                        $.post("/Shop/BrandUpdate",
+                          brand,
+                          function (data, status) {
+                              if (data.code == 0) {
+                                  Swal.fire(data.message, "", "success").then((result) => {
+                                      if (result.isConfirmed)
+                                      {
+                                          window.location = "/Shop/Brand";
+                                      }
+                                  });
+                                  $('#myModal').modal('hide');
+                              }
+                              else {
+                                  Swal.fire(data.message, "", "danger");
+                              }
+                          });
+                    } 
+                });
+
+            });
+
+            $('#myModal').modal('show');
+        });
+    }
+    function onDelete(id)
+    {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "question",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                // save here
+                $.post("/Shop/BrandDelete",
+                  {
+                      id: id
+                  },
+                  function (data, status) {
+                      if (data.code == 0) {
+                          Swal.fire(data.message, "", "success").then((result) => {
+                              if (result.isConfirmed)
+                              {
+                                  window.location = "/Shop/Brand";
+                              }
+                          });
+                          $('#myModal').modal('hide');
+                      }
+                      else {
+                          Swal.fire(data.message, "", "danger");
+                      }
+                  });
+            } 
+        });
+    }
+</script>
