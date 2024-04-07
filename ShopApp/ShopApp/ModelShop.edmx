@@ -45,7 +45,7 @@
           <Property Name="modelYear" Type="smallint" />
           <Property Name="listPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="dateCreated" Type="date" />
-          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
           <Property Name="userId" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Role">
@@ -109,6 +109,16 @@
           <Property Name="active" Type="int" />
           <Property Name="storeId" Type="int" />
           <Property Name="managerId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" />
+          <Property Name="roleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_category_product">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -186,6 +196,13 @@
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInformation" EntityType="Self.UserInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_role" EntityType="Self.vw_role" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_role].[id] AS [id], 
+    [vw_role].[username] AS [username], 
+    [vw_role].[roleName] AS [roleName]
+    FROM [dbo].[vw_role] AS [vw_role]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_category_product" Association="Self.FK_category_product">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -223,6 +240,7 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>
+          <EntitySet Name="Image" EntityType="shopModel.Image" />
           <EntitySet Name="Product" EntityType="shopModel.Product" />
           <AssociationSet Name="FK_product_brand" Association="shopModel.FK_product_brand">
             <End Role="Brand" EntitySet="Brand" />
@@ -232,15 +250,15 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Stock_Stock" Association="shopModel.FK_Stock_Stock">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <EntitySet Name="Image" EntityType="shopModel.Image" />
           <AssociationSet Name="FK_Image_Product" Association="shopModel.FK_Image_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Image" EntitySet="Image" />
           </AssociationSet>
+          <AssociationSet Name="FK_Stock_Stock" Association="shopModel.FK_Stock_Stock">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <EntitySet Name="vw_role" EntityType="shopModel.vw_role" />
         </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -340,11 +358,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="imageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="shopModel.FK_Image_Product" FromRole="Image" ToRole="Product" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="productId" />
           </Key>
           <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productgUId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="productName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="productDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="brandId" Type="Int32" Nullable="false" />
@@ -352,13 +380,12 @@
           <Property Name="modelYear" Type="Int16" />
           <Property Name="listPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="dateCreated" Type="DateTime" Precision="0" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="userId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Brand" Relationship="shopModel.FK_product_brand" FromRole="Product" ToRole="Brand" />
           <NavigationProperty Name="Category" Relationship="shopModel.FK_category_product" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="Stock" Relationship="shopModel.FK_Stock_Stock" FromRole="Product" ToRole="Stock" />
           <NavigationProperty Name="Image" Relationship="shopModel.FK_Image_Product" FromRole="Product" ToRole="Image" />
-          <Property Name="productgUId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stock" Relationship="shopModel.FK_Stock_Stock" FromRole="Product" ToRole="Stock" />
         </EntityType>
         <Association Name="FK_product_brand">
           <End Type="shopModel.Brand" Role="Brand" Multiplicity="1">
@@ -386,29 +413,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Stock_Stock">
-          <End Type="shopModel.Product" Role="Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="shopModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="productId" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="productId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Image">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="productId" Type="Int32" />
-          <Property Name="imageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="shopModel.FK_Image_Product" FromRole="Image" ToRole="Product" />
-        </EntityType>
         <Association Name="FK_Image_Product">
           <End Type="shopModel.Product" Role="Product" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -423,6 +427,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Stock_Stock">
+          <End Type="shopModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="shopModel.Stock" Role="Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productId" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vw_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -517,10 +543,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="shopModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="imageFile" ColumnName="imageFile" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="shopModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="productgUId" ColumnName="productgUId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
@@ -530,15 +564,16 @@
                 <ScalarProperty Name="brandId" ColumnName="brandId" />
                 <ScalarProperty Name="productDesc" ColumnName="productDesc" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productgUId" ColumnName="productgUId" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Image">
-            <EntityTypeMapping TypeName="shopModel.Image">
-              <MappingFragment StoreEntitySet="Image">
-                <ScalarProperty Name="imageFile" ColumnName="imageFile" />
-                <ScalarProperty Name="productId" ColumnName="productId" />
+          <EntitySetMapping Name="vw_role">
+            <EntityTypeMapping TypeName="shopModel.vw_role">
+              <MappingFragment StoreEntitySet="vw_role">
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

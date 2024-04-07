@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ShopApp.Product>
+﻿@using ShopApp.Utils
+@model IEnumerable<ShopApp.Product>
 
 @{
     ViewBag.Title = "Product";
@@ -6,7 +7,7 @@
     Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
 }
 
-<a href="~/Shop/CreateProduct" class="btn btn-info btn-lg">Create New</a>
+<a href="~/Shop/ProductCreate" class="btn btn-info btn-lg">Create New</a>
 
 <table id="myTable" class="table table-striped">
     <thead>
@@ -24,7 +25,10 @@
                 Year
             </th>
             <th>
-                Price
+                Price 
+            </th>
+            <th>
+                Status
             </th>
             <th>Action</th>
         </tr>
@@ -33,7 +37,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td width="30%">
                     @Html.DisplayFor(modelItem => item.productName)
                 </td>
                 <td>
@@ -42,16 +46,28 @@
                 <td>
                     @item.Category.categoryName
                 </td>
-                <td>
+                <td width="5%">
                     @Html.DisplayFor(modelItem => item.modelYear)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.listPrice)
+                    <span class="badge badge-success">Php @item.listPrice.ToString("N2")</span>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.productId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.productId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.productId })
+                    @switch ((ProductStatus)item.status)
+                    {
+                        case ProductStatus.NoStock:
+                            <button class="btn btn-info" onclick="AddStock(@item.productId, '@item.productName')">Add Stock</button>
+                            break;
+                        case ProductStatus.HasStock:
+                            <label>Has Stocks (@item.Stock.Sum(m => m.quantity) available)</label>
+                            break;
+                    }
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.productId }) |*@
+                    <a href="~/Shop/ProductDetail/@item.productId" class="btn btn-info" target="_blank"><i class="fa fa-info"></i> Details</a> |
+                   
+                    <button class="btn btn-danger" onclick="onDelete(@item.productId)"><i class="fa fa-trash"></i> Delete</button>
                 </td>
             </tr>
         }
@@ -61,3 +77,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--Dialog-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Content/Product/product.js"></script>
+<script src="~/Content/Product/AddStock.js"></script>

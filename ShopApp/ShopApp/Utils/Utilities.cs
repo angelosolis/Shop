@@ -23,6 +23,13 @@ namespace ShopApp.Utils
         Customer,
         Staff
     }
+
+    public enum ProductStatus
+    {
+        NoStock,
+        HasStock
+    }
+
     public class Constant
     {
         public const string Role_Customer = "Customer";
@@ -31,11 +38,7 @@ namespace ShopApp.Utils
         public const int ERROR = 1;
         public const int SUCCESS = 0;
     }
-    public class ProductStatus
-    {
-        public const String OK = "HAS STOCK/s";
-        public const String OUT_OF_STOCK = "OUT OF STOCK";
-    }
+   
     public class Utilities
     {
         public static String gUid {

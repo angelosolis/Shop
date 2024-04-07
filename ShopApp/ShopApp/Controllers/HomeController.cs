@@ -153,6 +153,11 @@ namespace ShopApp.Controllers
             TempData["Message"] = $"User Information {ErrorMessage}!";
             return View(userInf);
         }
+        public ActionResult Shop()
+        {
+            var products = _productManager.ListActiveProduct();
+            return View(products);
+        }
         public ActionResult PageNotFound()
         {
             return Content("Not Found Error 404");

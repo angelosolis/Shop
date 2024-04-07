@@ -146,21 +146,25 @@ namespace ShopApp.Controllers
             IsUserLoggedSession();
             return View(_productManager.ListProduct(Username));
         }
-        public ActionResult CreateProduct()
+        public ActionResult ProductCreate()
         {
             ViewBag.Brand = Utilities.SelectListItemBrandByUser(Username);
             ViewBag.Category = Utilities.SelectListItemCategoryByUser(Username);
             return View();
         }
         [HttpPost]
-        public ActionResult CreateProduct(Product product, HttpPostedFileBase[] files)
+        public ActionResult ProductCreate(Product product, HttpPostedFileBase[] files)
         {
+            //
+            ViewBag.Brand = Utilities.SelectListItemBrandByUser(Username);
+            ViewBag.Category = Utilities.SelectListItemCategoryByUser(Username);
+            // Generate Unieque Id
             var prodgUid = $"Item-{Utilities.gUid}";
             //
             product.productgUId = prodgUid;
             product.userId = UserId;
             product.dateCreated = DateTime.Now;
-            product.status = ProductStatus.OK;
+            product.status = (Int32)ProductStatus.NoStock;
 
             if (_productManager.CreateProduct(product, ref ErrorMessage) == ErrorCode.Error)
             {
@@ -189,13 +193,66 @@ namespace ShopApp.Controllers
                         img.imageFile = InputFileName;
                         img.productId = product.productId;
 
-                        _imgMgr.CreateImg(img, ref ErrorMessage); 
-
+                        if (_imgMgr.CreateImg(img, ref ErrorMessage) == ErrorCode.Error)
+                        {
+                            ModelState.AddModelError(String.Empty, ErrorMessage);
+                            // Remove created product and set error 
+                            _productManager.DeleteProduct(product.productId, ref ErrorMessage);
+                            // Remove created image attachment
+                            _imgMgr.DeleteImgByProductId(product.productId, ref ErrorMessage);
+                            return View(product);
+                        }
                     }
-
                 }
             }
-            return View(product);
+            TempData["Message"] = $"Product {product.productName} added!";
+            return RedirectToAction("Product");
+        }
+        public ActionResult ProductDetail(int? id)
+        {
+            ViewBag.Brand = Utilities.SelectListItemBrandByUser(Username);
+            ViewBag.Category = Utilities.SelectListItemCategoryByUser(Username);
+            // Handle error if id not supplied
+            if (id == null)
+                return RedirectToAction("PageNotFound", "Home");
+
+            var prod = _productManager.GetProductById(id);
+
+            if (prod == null)
+                return RedirectToAction("PageNotFound", "Home");
+
+            return View(prod);
+        }
+        public JsonResult ProductDelete(int? id)
+        {
+            var res = new Response();
+            res.code = (Int32)_productManager.DeleteProduct(id, ref ErrorMessage);
+            res.message = ErrorMessage;
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ProductStockAdd(int id, int qty)
+        {
+            Stock stock = new Stock();
+            stock.productId = id;
+            stock.quantity = qty;
+
+            var res = new Response();
+
+            if (qty == 0)
+            {
+                res.code = (Int32)ErrorCode.Error;
+                res.message = "Quantity Not Valid!";
+
+                return Json(res, JsonRequestBehavior.AllowGet);
+            }
+
+
+            //
+            res.code = (Int32)_productManager.AddStock(stock, ref ErrorMessage);
+            res.message = ErrorMessage;
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

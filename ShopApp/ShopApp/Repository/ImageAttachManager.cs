@@ -31,5 +31,14 @@ namespace ShopApp.Repository
         {
             return _img.Delete(id, out err);
         }
+
+        public ErrorCode DeleteImgByProductId(int? id, ref String err)
+        {
+            foreach (var i in _img._table.Where(m=>m.productId == id).ToList())
+            {
+                DeleteImg(i.id, ref err);
+            }
+            return ErrorCode.Success;
+        }
     }
 }

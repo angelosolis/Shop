@@ -51,7 +51,8 @@ namespace ShopApp
 
         public override string[] GetRolesForUser(string username)
         {
-            return _userAcc.GetAll().Where(m=>m.username == username).Select(m => m.Role.roleName).ToArray();
+            shopEntities db = new shopEntities();
+            return db.vw_role.Where(m => m.username == username).Select(m=>m.roleName).ToArray();
         }
 
         public override string[] GetUsersInRole(string roleName)

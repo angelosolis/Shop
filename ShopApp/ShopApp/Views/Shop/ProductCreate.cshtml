@@ -1,7 +1,7 @@
 ﻿@model ShopApp.Product
 
 @{
-    ViewBag.Title = "CreateProduct";
+    ViewBag.Title = "ProductCreate";
     ViewBag.HeaderTitle = "New Product";
     Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
 }
@@ -9,7 +9,7 @@
     #preview img { max-height: 100px; }
 </style>
 <div class="col-md-8">
-    @using (Html.BeginForm( "CreateProduct","Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ProductCreate", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 

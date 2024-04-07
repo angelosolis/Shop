@@ -17,8 +17,7 @@
     <title>Furniture Shop - @ViewBag.Title</title>
 </head>
 
-<body>
-
+<body>  
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
@@ -42,7 +41,12 @@
                                 <a class="nav-link" href="~/Shop">MyStore</a>
                             </li>
                         }
-
+                        else
+                        {
+                            <li class="@(ViewBag.Title == "Shop" ? "active": "")">
+                                <a class="nav-link" href="~/Home/Shop">Shop</a>
+                            </li>
+                        }
                          <li class="">
                              <a class="nav-link" href="~/Home/Logout">Sign Out</a>
                          </li>

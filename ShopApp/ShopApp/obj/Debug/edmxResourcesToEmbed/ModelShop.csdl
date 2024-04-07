@@ -12,6 +12,7 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="UserAccount" EntitySet="UserAccount" />
     </AssociationSet>
+    <EntitySet Name="Image" EntityType="shopModel.Image" />
     <EntitySet Name="Product" EntityType="shopModel.Product" />
     <AssociationSet Name="FK_product_brand" Association="shopModel.FK_product_brand">
       <End Role="Brand" EntitySet="Brand" />
@@ -21,15 +22,15 @@
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Stock_Stock" Association="shopModel.FK_Stock_Stock">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="Stock" EntitySet="Stock" />
-    </AssociationSet>
-    <EntitySet Name="Image" EntityType="shopModel.Image" />
     <AssociationSet Name="FK_Image_Product" Association="shopModel.FK_Image_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="Image" EntitySet="Image" />
     </AssociationSet>
+    <AssociationSet Name="FK_Stock_Stock" Association="shopModel.FK_Stock_Stock">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <EntitySet Name="vw_role" EntityType="shopModel.vw_role" />
   </EntityContainer>
   <EntityType Name="Brand">
     <Key>
@@ -129,11 +130,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productId" Type="Int32" />
+    <Property Name="imageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="shopModel.FK_Image_Product" FromRole="Image" ToRole="Product" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="productId" />
     </Key>
     <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productgUId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="productName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="productDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="brandId" Type="Int32" Nullable="false" />
@@ -141,13 +152,12 @@
     <Property Name="modelYear" Type="Int16" />
     <Property Name="listPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
     <Property Name="dateCreated" Type="DateTime" Precision="0" />
-    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="userId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Brand" Relationship="shopModel.FK_product_brand" FromRole="Product" ToRole="Brand" />
     <NavigationProperty Name="Category" Relationship="shopModel.FK_category_product" FromRole="Product" ToRole="Category" />
-    <NavigationProperty Name="Stock" Relationship="shopModel.FK_Stock_Stock" FromRole="Product" ToRole="Stock" />
     <NavigationProperty Name="Image" Relationship="shopModel.FK_Image_Product" FromRole="Product" ToRole="Image" />
-    <Property Name="productgUId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Stock" Relationship="shopModel.FK_Stock_Stock" FromRole="Product" ToRole="Stock" />
   </EntityType>
   <Association Name="FK_product_brand">
     <End Type="shopModel.Brand" Role="Brand" Multiplicity="1">
@@ -175,29 +185,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Stock_Stock">
-    <End Type="shopModel.Product" Role="Product" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="shopModel.Stock" Role="Stock" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="productId" />
-      </Principal>
-      <Dependent Role="Stock">
-        <PropertyRef Name="productId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Image">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="productId" Type="Int32" />
-    <Property Name="imageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Product" Relationship="shopModel.FK_Image_Product" FromRole="Image" ToRole="Product" />
-  </EntityType>
   <Association Name="FK_Image_Product">
     <End Type="shopModel.Product" Role="Product" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -212,4 +199,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Stock_Stock">
+    <End Type="shopModel.Product" Role="Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="shopModel.Stock" Role="Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="productId" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="productId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vw_role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

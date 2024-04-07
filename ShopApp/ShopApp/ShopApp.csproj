@@ -127,6 +127,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Product\AddStock.js" />
+    <Content Include="Content\Product\product.js" />
     <Content Include="Content\Shop\brand\brand.js" />
     <Content Include="Content\Shop\category\category.js" />
     <Content Include="Content\Shop\main.css" />
@@ -254,6 +256,9 @@
     </Compile>
     <Compile Include="Utils\MyRole.cs" />
     <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="vw_role.cs">
+      <DependentUpon>ModelShop.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -283,7 +288,9 @@
     <Content Include="Views\Shop\Brand.cshtml" />
     <Content Include="Views\Shop\Category.cshtml" />
     <Content Include="Views\Shop\Product.cshtml" />
-    <Content Include="Views\Shop\CreateProduct.cshtml" />
+    <Content Include="Views\Shop\ProductCreate.cshtml" />
+    <Content Include="Views\Shop\ProductDetail.cshtml" />
+    <Content Include="Views\Home\Shop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
