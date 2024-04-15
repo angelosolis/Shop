@@ -30,6 +30,15 @@ namespace ShopApp.Utils
         HasStock
     }
 
+    public enum OrderStatus
+    {
+        Open,
+        Pending,
+        Paid,
+        Delivered,
+        Close
+    }
+
     public class Constant
     {
         public const string Role_Customer = "Customer";
@@ -37,6 +46,10 @@ namespace ShopApp.Utils
 
         public const int ERROR = 1;
         public const int SUCCESS = 0;
+
+        public const string X = "X";
+        public const string MINUS = "−";
+        public const string PLUS = "+";
     }
    
     public class Utilities

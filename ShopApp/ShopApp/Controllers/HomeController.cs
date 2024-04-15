@@ -1,4 +1,5 @@
-﻿using ShopApp.Repository;
+﻿using ShopApp.Models;
+using ShopApp.Repository;
 using ShopApp.Utils;
 using System;
 using System.Collections.Generic;
@@ -158,6 +159,83 @@ namespace ShopApp.Controllers
             var products = _productManager.ListActiveProduct();
             return View(products);
         }
+
+        public JsonResult AddCart(int prodId, int qty)
+        {
+            var res = new Response();
+
+            if (_orderMgr.AddCart(UserId, prodId, qty, ref ErrorMessage) == ErrorCode.Error)
+            {
+                res.code = (Int32)ErrorCode.Error;
+                res.message = ErrorMessage;
+                return Json(res, JsonRequestBehavior.AllowGet);
+            }
+
+            res.code = (Int32)ErrorCode.Success;
+            res.message = "Item Added!";
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            if (id == null || id == 0)
+                return RedirectToAction("PageNotFound");
+
+            var productInfo = _productManager.GetProductById(id);
+
+            return View(productInfo);
+
+        }
+
+        public ActionResult Cart()
+        {
+            return View(_orderMgr.GetOrderByUserId(UserId));
+        }
+        // handle increment qty
+        [HttpPost]
+        public ActionResult Cart(int qty, int orderDtId, String action)
+        {
+            switch (action)
+            {
+                case Constant.PLUS:
+                    qty++;
+                    break;
+                case Constant.MINUS:
+                    qty--;
+                    break;
+                case Constant.X:
+                    _orderMgr.DeleteOrderDetail(orderDtId, ref ErrorMessage);
+                    //
+                    return View(_orderMgr.GetOrderByUserId(UserId));
+            }
+
+            // remove item
+            if (qty <= 0)
+            {
+                _orderMgr.DeleteOrderDetail(orderDtId, ref ErrorMessage);
+                //
+                return View(_orderMgr.GetOrderByUserId(UserId));
+            }
+            //
+
+            var orderDt = _orderMgr.GetOrderDetailById(orderDtId);
+            orderDt.quantity = qty;
+
+            _orderMgr.UpdateOrderDetail(orderDt.id, orderDt, ref ErrorMessage);
+
+
+            return View(_orderMgr.GetOrderByUserId(UserId));
+        }
+
+        public JsonResult GetCartCount()
+        {
+            var res = new { count = _orderMgr.GetCartCountByUserId(UserId) };
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        } 
+
+        [AllowAnonymous]
         public ActionResult PageNotFound()
         {
             return Content("Not Found Error 404");

@@ -27,6 +27,29 @@
     <Property Name="productId" Type="int" />
     <Property Name="imageFile" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="nvarchar(max)" />
+    <Property Name="orderStatus" Type="int" Nullable="false" />
+    <Property Name="storeId" Type="int" />
+    <Property Name="orderCreated" Type="datetime" />
+    <Property Name="orderDate" Type="datetime" />
+    <Property Name="requiredDate" Type="datetime" />
+    <Property Name="shippedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="productId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="listPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="productId" />
@@ -141,6 +164,44 @@ warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Order_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="storeId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="storeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="productId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="productId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_product_brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -169,6 +230,18 @@ warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Store_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Store1" Type="Self.Store" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="storeId" />
+      </Principal>
+      <Dependent Role="Store1">
+        <PropertyRef Name="storeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserAccount_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
     <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
@@ -181,10 +254,15 @@ warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="sp_getCartCountByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="shopModelStoreContainer">
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
@@ -206,6 +284,18 @@ warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defi
       <End Role="Product" EntitySet="Product" />
       <End Role="Image" EntitySet="Image" />
     </AssociationSet>
+    <AssociationSet Name="FK_Order_Store" Association="Self.FK_Order_Store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
     <AssociationSet Name="FK_product_brand" Association="Self.FK_product_brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="Product" EntitySet="Product" />
@@ -213,6 +303,10 @@ warning 6002: The table/view 'shop.dbo.vw_role' does not have a primary key defi
     <AssociationSet Name="FK_Stock_Stock" Association="Self.FK_Stock_Stock">
       <End Role="Product" EntitySet="Product" />
       <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Store_Store" Association="Self.FK_Store_Store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="Store1" EntitySet="Store" />
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Role" Association="Self.FK_UserAccount_Role">
       <End Role="Role" EntitySet="Role" />

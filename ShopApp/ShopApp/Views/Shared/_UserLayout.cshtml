@@ -15,6 +15,8 @@
     <link href="~/Content/User/css/tiny-slider.css" rel="stylesheet">
     <link href="~/Content/User/css/style.css" rel="stylesheet">
     <title>Furniture Shop - @ViewBag.Title</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>  
@@ -63,7 +65,7 @@
                 {
                     <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                         <li class="@(ViewBag.Title == "MyProfile" ? "active": "")"><a class="nav-link" href="~/Home/MyProfile"><img src="~/Content/User/images/user.svg"></a></li>
-                        <li><a class="nav-link" href="~/Home/Cart"><img src="~/Content/User/images/cart.svg"></a></li>
+                        <li><a class="nav-link" href="~/Home/Cart"><img src="~/Content/User/images/cart.svg"><span class="badge badge-success" id="lblCountCart"></span></a></li>
                     </ul>
                 }
                
@@ -126,6 +128,22 @@
     <script src="~/Content/User/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/User/js/tiny-slider.js"></script>
     <script src="~/Content/User/js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadCartCount();
+        });
+        function loadCartCount()
+        {
+            $.get("/Home/GetCartCount",
+                  function (data) {
+                      console.log(data.count);
+                      if (data.count != 0) {
+                          document.getElementById("lblCountCart").innerHTML = data.count;
+                      }
+                  });
+        }
+    </script>
 </body>
 
 </html>

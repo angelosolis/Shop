@@ -18,6 +18,7 @@ namespace ShopApp
         public Product()
         {
             this.Image = new HashSet<Image>();
+            this.OrderDetail = new HashSet<OrderDetail>();
             this.Stock = new HashSet<Stock>();
         }
     
@@ -37,6 +38,8 @@ namespace ShopApp
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Image { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stock> Stock { get; set; }
     }

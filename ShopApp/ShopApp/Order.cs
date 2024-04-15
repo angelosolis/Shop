@@ -12,27 +12,25 @@ namespace ShopApp
     using System;
     using System.Collections.Generic;
     
-    public partial class Store
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Store()
+        public Order()
         {
-            this.Order = new HashSet<Order>();
+            this.OrderDetail = new HashSet<OrderDetail>();
         }
     
-        public int storeId { get; set; }
-        public string storeGuid { get; set; }
-        public string storeName { get; set; }
-        public string phone { get; set; }
-        public string email { get; set; }
-        public string street { get; set; }
-        public string city { get; set; }
-        public string state { get; set; }
-        public string zip_code { get; set; }
+        public int orderId { get; set; }
+        public string userId { get; set; }
+        public int orderStatus { get; set; }
+        public Nullable<int> storeId { get; set; }
+        public Nullable<System.DateTime> orderCreated { get; set; }
+        public Nullable<System.DateTime> orderDate { get; set; }
+        public Nullable<System.DateTime> requiredDate { get; set; }
+        public Nullable<System.DateTime> shippedDate { get; set; }
     
+        public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
-        public virtual Store Store1 { get; set; }
-        public virtual Store Store2 { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
     }
 }

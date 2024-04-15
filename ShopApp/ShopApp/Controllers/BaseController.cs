@@ -16,6 +16,7 @@ namespace ShopApp.Controllers
         public CategoryManager _categoryManager;
         public ProductManager _productManager;
         public ImageAttachManager _imgMgr;
+        public OrderManager _orderMgr;
 
         public String Username { get { return User.Identity.Name; } }
         public String UserId { get { return _userManager.GetUserByUsername(Username).userId; } }
@@ -29,6 +30,7 @@ namespace ShopApp.Controllers
             _categoryManager = new CategoryManager();
             _productManager = new ProductManager();
             _imgMgr = new ImageAttachManager();
+            _orderMgr = new OrderManager();
         }
 
        

@@ -22,6 +22,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Image">
+      <EntityTypeMapping TypeName="shopModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="imageFile" ColumnName="imageFile" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetail">
+      <EntityTypeMapping TypeName="shopModel.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="shopModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
+          <ScalarProperty Name="modelYear" ColumnName="modelYear" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="brandId" ColumnName="brandId" />
+          <ScalarProperty Name="productDesc" ColumnName="productDesc" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productgUId" ColumnName="productgUId" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Role">
       <EntityTypeMapping TypeName="shopModel.Role">
         <MappingFragment StoreEntitySet="Role">
@@ -89,38 +126,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Image">
-      <EntityTypeMapping TypeName="shopModel.Image">
-        <MappingFragment StoreEntitySet="Image">
-          <ScalarProperty Name="imageFile" ColumnName="imageFile" />
-          <ScalarProperty Name="productId" ColumnName="productId" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Product">
-      <EntityTypeMapping TypeName="shopModel.Product">
-        <MappingFragment StoreEntitySet="Product">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
-          <ScalarProperty Name="modelYear" ColumnName="modelYear" />
-          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
-          <ScalarProperty Name="brandId" ColumnName="brandId" />
-          <ScalarProperty Name="productDesc" ColumnName="productDesc" />
-          <ScalarProperty Name="productName" ColumnName="productName" />
-          <ScalarProperty Name="productgUId" ColumnName="productgUId" />
-          <ScalarProperty Name="productId" ColumnName="productId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="vw_role">
       <EntityTypeMapping TypeName="shopModel.vw_role">
         <MappingFragment StoreEntitySet="vw_role">
           <ScalarProperty Name="roleName" ColumnName="roleName" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_getCartCountByUserId" FunctionName="shopModel.Store.sp_getCartCountByUserId" />
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="shopModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="shippedDate" ColumnName="shippedDate" />
+          <ScalarProperty Name="requiredDate" ColumnName="requiredDate" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="orderCreated" ColumnName="orderCreated" />
+          <ScalarProperty Name="storeId" ColumnName="storeId" />
+          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

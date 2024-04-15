@@ -171,6 +171,9 @@
     <Content Include="Content\User\js\bootstrap.bundle.min.js" />
     <Content Include="Content\User\js\custom.js" />
     <Content Include="Content\User\js\tiny-slider.js" />
+    <Content Include="Content\User\qty.css" />
+    <Content Include="Content\User\qty.js" />
+    <Content Include="Content\User\User.js" />
     <Content Include="Global.asax" />
     <Content Include="ModelShop.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -207,6 +210,12 @@
       <DependentUpon>ModelShop.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Order.cs">
+      <DependentUpon>ModelShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetail.cs">
+      <DependentUpon>ModelShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\BrandManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -236,6 +245,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\CategoryManager.cs" />
     <Compile Include="Repository\ImageAttachManager.cs" />
+    <Compile Include="Repository\OrderManager.cs" />
     <Compile Include="Repository\ProductManager.cs" />
     <Compile Include="Repository\StoreManager.cs" />
     <Compile Include="Repository\UserManager.cs" />
@@ -291,6 +301,8 @@
     <Content Include="Views\Shop\ProductCreate.cshtml" />
     <Content Include="Views\Shop\ProductDetail.cshtml" />
     <Content Include="Views\Home\Shop.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Home\Cart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
