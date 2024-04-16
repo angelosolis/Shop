@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ShopApp.Category>
+
+@{
+    ViewBag.Title = "Category";
+    ViewBag.HeaderTitle = "List Category";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+<button id="btnCreate" type="button" class="btn btn-info btn-lg">Create New</button>
+
+<table id="myTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Date Create / Modified
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryName)
+                </td>
+                <td>
+                    @item.dateCreated.Value.ToLongDateString()
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="onEdit(@item.categoryId)" style="cursor: pointer;"><i class="fa fa-edit"></i> Edit</button> |
+                    <button class="btn btn-danger" onclick="onDelete(@item.categoryId)" style="cursor: pointer;"><i class="fa fa-trash"></i> Delete</button>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--Dialog-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Content/Shop/category/category.js"></script>

@@ -1,0 +1,81 @@
+﻿@using ShopApp.Utils
+@model IEnumerable<ShopApp.Product>
+
+@{
+    ViewBag.Title = "Product";
+    ViewBag.HeaderTitle = "List Product";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+<a href="~/Shop/ProductCreate" class="btn btn-info btn-lg">Create New</a>
+
+<table id="myTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Brand 
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Price 
+            </th>
+            <th>
+                Status
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="30%">
+                    @Html.DisplayFor(modelItem => item.productName)
+                </td>
+                <td>
+                    @item.Brand.brandName
+                </td>
+                <td>
+                    @item.Category.categoryName
+                </td>
+                <td width="5%">
+                    @Html.DisplayFor(modelItem => item.modelYear)
+                </td>
+                <td>
+                    <span class="badge badge-success">Php @item.listPrice.ToString("N2")</span>
+                </td>
+                <td>
+                    @switch ((ProductStatus)item.status)
+                    {
+                        case ProductStatus.NoStock:
+                            <button class="btn btn-info" onclick="AddStock(@item.productId, '@item.productName')">Add Stock</button>
+                            break;
+                        case ProductStatus.HasStock:
+                            <label>Has Stocks (@item.Stock.Sum(m => m.quantity) available)</label>
+                            break;
+                    }
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.productId }) |*@
+                    <a href="~/Shop/ProductDetail/@item.productId" class="btn btn-info" target="_blank"><i class="fa fa-info"></i> Details</a> |
+                   
+                    <button class="btn btn-danger" onclick="onDelete(@item.productId)"><i class="fa fa-trash"></i> Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--Dialog-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Content/Product/product.js"></script>
+<script src="~/Content/Product/AddStock.js"></script>

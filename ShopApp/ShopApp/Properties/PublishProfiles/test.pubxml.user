@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\USER\Documents\My Web Sites\Shop</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>04/15/2024 17:12:25</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>04/15/2024 17:12:25</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/ShopApp.dll">
+      <publishTime>04/15/2024 17:12:11</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>04/06/2024 00:16:05</publishTime>
+    </File>
+    <File Include="Content/Product/AddStock.js">
+      <publishTime>04/07/2024 13:11:58</publishTime>
+    </File>
+    <File Include="Content/Product/product.js">
+      <publishTime>04/07/2024 12:58:44</publishTime>
+    </File>
+    <File Include="Content/Shop/brand/brand.js">
+      <publishTime>04/06/2024 01:27:30</publishTime>
+    </File>
+    <File Include="Content/Shop/category/category.js">
+      <publishTime>04/06/2024 01:25:55</publishTime>
+    </File>
+    <File Include="Content/Shop/main.css">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/Shop/main.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/Shop/tables.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/css/bootstrap.min.css">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/css/style.css">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/css/tiny-slider.css">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/bag.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/bowl-2.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/bowl-3.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/cart.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/couch.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/cross.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/dots-green.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/dots-light.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/dots-yellow.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/envelope-outline.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/img-grid-1.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/img-grid-2.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/img-grid-3.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person-1.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person-1.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person_1.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person_2.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person_3.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/person_4.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/post-1.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/post-2.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/post-3.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/product-1.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/product-2.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/product-3.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/return.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/sofa.png">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/support.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/truck.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/user.svg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/images/why-choose-us-img.jpg">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/js/bootstrap.bundle.min.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/js/custom.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/js/tiny-slider.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/qty.css">
+      <publishTime>04/11/2024 22:46:05</publishTime>
+    </File>
+    <File Include="Content/User/qty.js">
+      <publishTime>04/11/2024 22:37:43</publishTime>
+    </File>
+    <File Include="Content/User/scss/style.scss">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Content/User/User.js">
+      <publishTime>04/13/2024 22:58:27</publishTime>
+    </File>
+    <File Include="ModelShop.edmx.diagram">
+      <publishTime>04/13/2024 01:31:48</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>04/15/2024 17:12:15</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Home/Cart.cshtml">
+      <publishTime>04/15/2024 17:03:21</publishTime>
+    </File>
+    <File Include="Views/Home/Detail.cshtml">
+      <publishTime>04/13/2024 23:07:23</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Home/Login.cshtml">
+      <publishTime>04/06/2024 01:19:29</publishTime>
+    </File>
+    <File Include="Views/Home/MyProfile.cshtml">
+      <publishTime>04/06/2024 00:21:42</publishTime>
+    </File>
+    <File Include="Views/Home/Shop.cshtml">
+      <publishTime>04/11/2024 22:33:59</publishTime>
+    </File>
+    <File Include="Views/Home/SignUp.cshtml">
+      <publishTime>04/06/2024 02:09:14</publishTime>
+    </File>
+    <File Include="Views/Home/Verify.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Shared/_AdminLayoutPage.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Shared/_ShopLayoutPage.cshtml">
+      <publishTime>04/07/2024 12:07:19</publishTime>
+    </File>
+    <File Include="Views/Shared/_UserLayout.cshtml">
+      <publishTime>04/13/2024 01:15:39</publishTime>
+    </File>
+    <File Include="Views/Shop/Brand.cshtml">
+      <publishTime>04/11/2024 23:35:13</publishTime>
+    </File>
+    <File Include="Views/Shop/Category.cshtml">
+      <publishTime>04/06/2024 01:11:08</publishTime>
+    </File>
+    <File Include="Views/Shop/Index.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Shop/MyProfile.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Shop/MyStore.cshtml">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Views/Shop/Product.cshtml">
+      <publishTime>04/07/2024 13:01:45</publishTime>
+    </File>
+    <File Include="Views/Shop/ProductCreate.cshtml">
+      <publishTime>04/07/2024 12:00:36</publishTime>
+    </File>
+    <File Include="Views/Shop/ProductDetail.cshtml">
+      <publishTime>04/07/2024 12:54:40</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>04/06/2024 00:16:04</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>04/15/2024 17:12:13</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

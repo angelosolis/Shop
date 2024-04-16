@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewBag.Title = "Cart";
+    ViewBag.HeaderTitle = "My Cart";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="untree_co-section before-footer-section">
+    <div class="container">
+        <div class="row mb-5">
+            <ul style="list-style:none;">
+                @foreach (var order in Model)
+                {
+                    if (order.OrderDetail.Count != 0)
+                    {
+                    double total = 0;
+                    <li>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>ORDER#@order.orderId</h1>
+                                <h2>Store : @order.Store.storeName</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @using (Html.BeginForm())
+                            {
+                                
+                                <div class="site-blocks-table">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail">Image</th>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-price">Price</th>
+                                                <th class="product-quantity">Quantity</th>
+                                                <th class="product-total">Total</th>
+                                                <th class="product-remove">Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           
+                                            @foreach (var orDetail in order.OrderDetail)
+                                            {
+                                                total += (Convert.ToDouble(orDetail.quantity) * Convert.ToDouble(orDetail.listPrice));
+                                                <tr>
+                                                    <td class="product-thumbnail">
+                                                        <a href="~/Home/Detail/@orDetail.productId" target="_blank">
+                                                            <img src="~/UploadedFiles/@orDetail.Product.Image.FirstOrDefault().imageFile" alt="Image" class="img-fluid">
+                                                        </a>
+                                                    </td>
+                                                    <td class="product-name">
+                                                        <a href="~/Home/Detail/@orDetail.productId" target="_blank">
+                                                            <h2 class="h5 text-black">@orDetail.Product.productName</h2>
+                                                        </a>
+                                                    </td>
+                                                    <td>Php @orDetail.listPrice.ToString("N2")</td>
+                                                    <td>
+                                                        <input type="hidden" name="orderDtId" value="@orDetail.id" />
+                                                        <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                                            <div class="input-group-prepend">
+                                                                <input  class="btn btn-outline-black decrease" type="submit" name="action" value="&minus;" />
+                                                            </div>
+                                                            <input type="text" class="form-control text-center quantity-amount" name="qty" value="@orDetail.quantity" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                            <div class="input-group-append">
+                                                                <input class="btn btn-outline-black decrease" type="submit" name="action" value="&plus;" />
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                    <td>Php @((orDetail.listPrice * orDetail.quantity).ToString("N2") )</td>
+                                                    <td><input class="btn btn-black btn-sm" type="submit" name="action" value="X" /></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <h1>Total : Php @total.ToString("N2")</h1> 
+                                <hr />
+                                <a href="~/Home/CheckOut" class="btn btn-primary" style="color:white;float:right;">Proceed to Check Out &nbsp; <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+
+     
+    </div>
+</div>
+

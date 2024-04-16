@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="221adeb04f964bf9b64b10e121db0919" Name="Diagram1">
+        <EntityTypeShape EntityType="shopModel.Brand" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="shopModel.Category" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="shopModel.Image" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="shopModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.75" />
+        <EntityTypeShape EntityType="shopModel.Product" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="shopModel.Role" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="shopModel.Stock" Width="1.5" PointX="5.25" PointY="2.75" />
+        <EntityTypeShape EntityType="shopModel.Store" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="shopModel.UserAccount" Width="1.5" PointX="11" PointY="8" />
+        <EntityTypeShape EntityType="shopModel.UserInformation" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="shopModel.vw_role" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="shopModel.FK_product_brand" />
+        <AssociationConnector Association="shopModel.FK_category_product" />
+        <AssociationConnector Association="shopModel.FK_Image_Product" />
+        <AssociationConnector Association="shopModel.FK_OrderDetail_Product" />
+        <AssociationConnector Association="shopModel.FK_Stock_Stock" />
+        <AssociationConnector Association="shopModel.FK_UserAccount_Role" />
+        <EntityTypeShape EntityType="shopModel.Order" Width="1.5" PointX="3" PointY="8" />
+        <AssociationConnector Association="shopModel.FK_Order_Store" />
+        <AssociationConnector Association="shopModel.FK_OrderDetail_Order" />
+        <AssociationConnector Association="shopModel.FK_Store_Store" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

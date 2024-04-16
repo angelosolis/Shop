@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ShopApp.Brand>
+
+@{
+    ViewBag.Title = "Brand";
+    ViewBag.HeaderTitle = "List of Brand";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+<button id="btnCreate" type="button" class="btn btn-info btn-lg">Create New</button>
+
+<table id="myTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Seq #
+            </th>
+            <th>
+                 Brand Name
+            </th>
+            <th>
+                Date Created / Modified
+            </th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @{ int i = 1;}
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.brandName)
+                </td>
+                <td>
+                    @item.dateCreated.Value.ToLongDateString()
+                </td>
+                <td>
+                    @(item.status == 1 ? "Active": "Inactive")
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="onEdit(@item.brandId)" style="cursor: pointer;"><i class="fa fa-edit"></i> Edit</button> |
+                    <button class="btn btn-danger" onclick="onDelete(@item.brandId)" style="cursor: pointer;"><i class="fa fa-trash"></i> Delete</button> 
+
+                </td>
+            </tr>
+
+            i++;
+        }
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--Dialog-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Content/Shop/brand/brand.js"></script>

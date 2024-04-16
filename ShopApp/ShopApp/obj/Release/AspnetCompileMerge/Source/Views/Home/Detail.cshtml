@@ -1,0 +1,140 @@
+﻿@model ShopApp.Product
+@using ShopApp.Utils
+@{
+    ViewBag.Title = "Detail";
+    ViewBag.HeaderTitle = Model.productName;
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<link href="~/Content/User/qty.css" rel="stylesheet" />
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="demo" class="carousel slide" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    @{ int i = 0;}
+                    @foreach (var item in Model.Image)
+                    {
+                        <li data-target="#demo" data-slide-to="@i" class="@( i == 0 ? "active": "")"></li>
+                        i++;
+                    }
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                    @{ int i1 = 0;}
+                    @foreach (var item in Model.Image)
+                    {
+                        <div class="carousel-item @( i1 == 0 ? "active": "")">
+                            <img src="~/UploadedFiles/@item.imageFile" alt="">
+                        </div>
+                        i1++;
+                    }
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h4><b>@Model.productName</b></h4>
+                <hr />
+                <a href="~/Home/Shop">Back</a>
+                <dl class="dl-horizontal">
+                    <dt>
+                        <label>Description</label>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.productDesc)
+                    </dd>
+
+                    <dt>
+                        <label>Brand</label>
+                    </dt>
+
+                    <dd>
+                        @Model.Brand.brandName
+                    </dd>
+
+                    <dt>
+                        <label>Category</label>
+                    </dt>
+
+                    <dd>
+                        @Model.Category.categoryName
+                    </dd>
+
+                    <dt>
+                        <label>Model Year</label>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.modelYear)
+                    </dd>
+
+                    <dt>
+                        <label>Price</label>
+                    </dt>
+
+                    <dd>
+                        <h3>Php @Model.listPrice.ToString("N2")</h3>
+                    </dd>
+
+                    <dt>
+
+                        <label>Date Created</label>
+                    </dt>
+
+                    <dd>
+                        @Model.dateCreated.Value.ToShortDateString()
+                    </dd>
+
+                    <dt>
+                        <label>Status</label>
+                    </dt>
+
+                    <dd>
+                        @switch ((ProductStatus)Model.status)
+                        {
+                            case ProductStatus.NoStock:
+                                <button class="btn btn-info" onclick="AddStock(@Model.productId)">Add Stock</button>
+                                break;
+                            case ProductStatus.HasStock:
+                                <label>Has Stocks (@Model.Stock.Sum(m => m.quantity) available)</label>
+                                break;
+                        }
+                    </dd>
+                   
+                </dl>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="quantity">
+                            <button class="minus" aria-label="Decrease">&minus;</button>
+                            <input type="number" id="txtQty" class="input-box" value="1" min="1" max="10">
+                            <button class="plus" aria-label="Increase">&plus;</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success" onclick="onAddCart(@Model.productId)"><i class="fa fa-shopping-cart" ></i> ADD CART</button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/Shop/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Content/User/qty.js"></script>
+<script type="text/javascript" src="~/Content/User/User.js"></script>
