@@ -265,6 +265,7 @@
     <Compile Include="UserInformation.cs">
       <DependentUpon>ModelShop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\MailManager.cs" />
     <Compile Include="Utils\MyRole.cs" />
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="vw_role.cs">
@@ -304,6 +305,7 @@
     <Content Include="Views\Home\Shop.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Home\Email.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

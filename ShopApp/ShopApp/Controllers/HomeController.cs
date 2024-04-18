@@ -240,5 +240,22 @@ namespace ShopApp.Controllers
         {
             return Content("Not Found Error 404");
         }
+        [AllowAnonymous]
+        public ActionResult Email()
+        {
+            ViewBag.Error = "";
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost,ValidateInput(false)]
+        public ActionResult Email(String mailTo, String mailBody, String mailSubject)
+        {
+            String strResult = String.Empty;
+            MailManager mail = new MailManager();
+
+            mail.SendEmail(mailTo, mailSubject, mailBody, ref strResult);
+            ViewBag.Error = strResult;
+            return View();
+        }
     }
 }
